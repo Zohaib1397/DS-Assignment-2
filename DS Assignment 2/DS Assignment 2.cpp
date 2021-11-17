@@ -218,7 +218,7 @@ public:
 		{
 			if (isempty())
 			{
-				rear = (rear + 1) % size;
+				rear = rear % size + 1;
 				list[rear] = S;
 				front++;
 				count++;
@@ -226,7 +226,7 @@ public:
 			}
 			else
 			{
-				rear = (rear + 1) % size;
+				rear = rear % size + 1;
 				list[rear] = S;
 				count++;
 				length++;
@@ -251,13 +251,13 @@ public:
 				temp = new Student;
 				list[++rear] = S;
 				*temp = list[rear];
+				length++;
 				for (int i = length; i > pos; i--)
 				{
 					list[i] = list[i - 1];
 				}
 				list[pos] = *temp;
 				delete temp;
-				length++;
 				count++;
 			}
 		}
@@ -347,12 +347,91 @@ public:
 	}
 	void search()
 	{
+		char ch;
+		string* n;
+		n = new string;
+		string reg;
+		float CGPA;;
+		string program;
 		if (!isempty())
 		{
 			cout << "Press" << BRED << " [1] " << Reset"if you want to search through name" << endl;
 			cout << "Press" << BRED << " [2] " << Reset"if you want to search through Registration Number" << endl;
 			cout << "Press" << BRED << " [3] " << Reset"if you want to search through CGPA" << endl;
 			cout << "Press" << BRED << " [4] " << Reset"if you want to search through program" << endl;
+			cout << BCyan << "\nEnter choice" << Reset << endl;
+			cin >> ch;
+			system("CLS");
+			if (ch == '1')
+			{
+				cout << "Enter name you want to search\n";
+				cin.ignore();
+				getline(cin, *n);
+				for (int i = 0; i < length; i++)
+				{
+					if (*n == *list[i].name)
+					{
+						cout << "Name of the student is " << *list[i].name << endl;
+						cout << "Registration number of the student is " << list[i].Reg_no << endl;
+						cout << "CGPA of the student is " << list[i].CGPA << endl;
+						cout << "Choosen Program of the student is " << list[i].program << endl;
+						cout << endl;
+					}
+				}
+			}
+			else if (ch == '2')
+			{
+				cout << "Enter Registration number you want to search for\n";
+				cin.ignore();
+				getline(cin, reg);
+				for (int i = 0; i < length; i++)
+				{
+					if (reg == list[i].Reg_no)
+					{
+						cout << "Name of the student is " << *list[i].name << endl;
+						cout << "Registration number of the student is " << list[i].Reg_no << endl;
+						cout << "CGPA of the student is " << list[i].CGPA << endl;
+						cout << "Choosen Program of the student is " << list[i].program << endl;
+						cout << endl;
+					}
+				}
+				
+			}
+			else if (ch == '3')
+			{
+				cout << "Enter CGPA you want to search for\n";
+				cin >> CGPA;
+				for (int i = 0; i < length; i++)
+				{
+					if (CGPA == list[i].CGPA)
+					{
+						cout << "Name of the student is " << *list[i].name << endl;
+						cout << "Registration number of the student is " << list[i].Reg_no << endl;
+						cout << "CGPA of the student is " << list[i].CGPA << endl;
+						cout << "Choosen Program of the student is " << list[i].program << endl;
+						cout << endl;
+					}
+				}
+			}
+			else if (ch == '4')
+			{
+				cout << "Enter Program you want to search for\n";
+				cin.ignore();
+				getline(cin, program);
+				for (int i = 0; i < length; i++)
+				{
+					if (program == list[i].program)
+					{
+						cout << "Name of the student is " << *list[i].name << endl;
+						cout << "Registration number of the student is " << list[i].Reg_no << endl;
+						cout << "CGPA of the student is " << list[i].CGPA << endl;
+						cout << "Choosen Program of the student is " << list[i].program << endl;
+						cout << endl;
+					}
+				}
+			}
+
+
 		}
 		else
 		{
@@ -363,7 +442,7 @@ public:
 	}
 	void LSdisplay()//for stack and queue
 	{
-		char ch;
+		
 		for (int i = front-1; i < length; i++)
 		{
 			cout << "Name of the student is " << *list[i].name << endl;
@@ -371,9 +450,7 @@ public:
 			cout << "CGPA of the student is " << list[i].CGPA << endl;
 			cout << "Choosen Program of the student is " << list[i].program << endl;
 			cout << endl;
-			cout << BCyan << "\nEnter choice" << Reset << endl;
-			cin >> ch;
-			system("CLS");
+			
 		}
 	}
 	void Qdisplay()//for displaying circular queue
@@ -387,7 +464,7 @@ public:
 			{
 				if (front < rear)
 				{
-					for (int i = front - 1; i < rear; i++)
+					for (int i = front-1; i < rear; i++)
 					{
 						cout << "Name of the student is " << *list[i].name << endl;
 						cout << "Registration number of the student is " << list[i].Reg_no << endl;
@@ -395,6 +472,14 @@ public:
 						cout << "Choosen Program of the student is " << list[i].program << endl;
 						cout << endl;
 					}
+				}
+				else if (front == rear)
+				{
+					cout << "Name of the student is " << *list[front-1].name << endl;
+					cout << "Registration number of the student is " << list[front-1].Reg_no << endl;
+					cout << "CGPA of the student is " << list[front-1].CGPA << endl;
+					cout << "Choosen Program of the student is " << list[front-1].program << endl;
+					cout << endl;
 				}
 				else
 				{
