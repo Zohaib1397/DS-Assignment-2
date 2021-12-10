@@ -1,0 +1,509 @@
+#include<iostream>
+
+#include<unordered_set>
+
+using namespace std;
+
+int COUNTER = 0;
+
+struct Node {
+
+      int data;
+
+      Node* next;
+
+};
+
+class LinkedList {
+
+      Node* head;
+
+public:
+
+      LinkedList() {
+
+            head = NULL;
+
+      }
+
+      void insertAtEnd() {
+
+            Node* temp;
+
+            temp = new Node;
+
+            cout << "Enter Data: ";
+
+            int data;
+
+            cin >> data;
+
+            cin.ignore();
+
+            temp->data = data;
+
+            temp->next = NULL;
+
+            if (head == NULL) {
+
+                  COUNTER++;
+
+                  head = temp;
+
+            }
+
+            else {
+
+                  COUNTER++;
+
+                  Node* current = head;
+
+                  while (current->next != NULL) {
+
+                        current = current->next;
+
+                  }
+
+                  current->next = temp;
+
+ 
+
+            }
+
+      }
+
+      void insertAtFront() {
+
+            Node* temp = new Node;
+
+            cout << "Enter Data: ";
+
+            int data;
+
+            cin >> data;
+
+            cin.ignore();
+
+            temp->data = data;
+
+            temp->next = NULL;
+
+            if (head == NULL) {
+
+                  head = temp;
+
+                  COUNTER++;
+
+            }
+
+            else {
+
+                  COUNTER++;
+
+                  temp->next = head;
+
+                  head = temp;
+
+            }
+
+      }
+
+      void insertAfterNumber() {
+
+            if (head == NULL) {
+
+                  cout << "List is Empty\n";
+
+                  return;
+
+            }
+
+            int number;
+
+            cout << "Enter Number: ";
+
+            cin >> number;
+
+            cin.ignore();
+
+            int check = 0;
+
+            Node* current = head;
+
+            while (current != NULL) {
+
+                  if (current->data == number) {
+
+                        check = 1;
+
+                        break;
+
+                  }
+
+                  current = current->next;
+
+            }
+
+            if (check == 1) {
+
+                  Node* temp = new Node;
+
+                  temp->next = NULL;
+
+                  if (current->next != NULL) {
+
+                        cout << "Enter Data: ";
+
+                        cin >> temp->data;
+
+                        cin.ignore();
+
+                        temp->next = current->next;
+
+                        current->next = temp;
+
+                        COUNTER++;
+
+                        return;
+
+                  }
+
+                  else {
+
+                        cout << "Enter Data: ";
+
+                        cin >> temp->data;
+
+                        cin.ignore();
+
+                        current->next = temp;
+
+                        COUNTER++;
+
+                        return;
+
+                  }
+
+            }
+
+            cout << "Number not Found\n";
+
+      }
+
+      void deleteFront() {
+
+            if (head == NULL) {
+
+                  cout << "Cannot Delete because list is Empty\n";
+
+            }
+
+            else {
+
+                  Node* temp=head->next;
+
+                  head = temp;
+
+            }
+
+      }
+
+      void deleteEnd() {
+
+            if (head == NULL) {
+
+                  cout << "Cannot Delete because list is Empty\n";
+
+            }
+
+            else {
+
+                  COUNTER--;
+
+                  Node* current = head;
+
+                  while (current->next->next != NULL) {
+
+                        current = current->next;
+
+                  }
+
+                  Node* temp = current;
+
+                  current->next = NULL;
+
+            }
+
+      }
+
+      void deleteAnyNumber() {
+
+            if (head == NULL) {
+
+                  cout << "List is Empty Cannot Delete\n";
+
+            }
+
+            else {
+
+                  cout << "Enter Number to search and Delete: ";
+
+                  Node* temp = new Node;
+
+                  temp->next = NULL;
+
+                  cin >> temp->data;
+
+                  cin.ignore();
+
+                  Node* current = head;
+
+                  Node* previous = head;
+
+                  if (head->data == temp->data) {
+
+                        head = head->next;
+
+                        COUNTER--;
+
+                  }
+
+                  else {
+
+                        while (current != NULL) {
+
+                              if (current->data == temp->data) {
+
+                                    break;
+
+                              }
+
+                              previous = current;
+
+                              current = current->next;
+
+                        }
+
+                        if (current != NULL) {
+
+                              COUNTER--;
+
+                              previous->next = current->next;
+
+                        }
+
+                        else {
+
+                              cout << "Number Not Found\n";
+
+                        }
+
+                  }
+
+                 
+
+            }
+
+      }
+
+      void display() {
+
+            Node* current=head;
+
+            if (head == NULL) {
+
+                  cout << "List is Empty\n";
+
+            }
+
+            else {
+
+                  while (current != NULL) {
+
+                        cout << current->data << " ";
+
+                        current = current->next;
+
+                  }
+
+                  cout << "\n";
+
+            }
+
+      }
+
+      void Remove_Duplicate() {
+
+            if (head == NULL) {
+
+                  cout << "List is Empty\n";
+
+            }
+
+            else {
+
+                  unordered_set<int>list;
+
+                  Node* current = head;
+
+                  Node* previous = head;
+
+                  int index = 0;
+
+                  while (current != NULL) {
+
+                        if (list.find(current->data) != list.end()) {
+
+                              previous->next = current->next;
+
+                              delete (current);
+
+                        }
+
+                        else {
+
+                              list.insert(current->data);
+
+                              previous = current;
+
+                        }
+
+                        current = previous->next;
+
+                  }
+
+            }
+
+      }
+
+      int Count() {
+
+            if (head == NULL) {
+
+                  cout << "List is Empty\n";
+
+                  return 0;
+
+            }
+
+            else {
+
+                  int count=0;
+
+                  Node* current = head;
+
+                  while (current != NULL) {
+
+                        count++;
+
+                        current = current->next;
+
+                  }
+
+                  return count;
+
+            }
+
+      }
+
+};
+
+int main() {                                                                                                                          
+
+      LinkedList obj;
+
+      bool isRunning = true;
+
+      do {
+
+            bool user_choice;
+
+            do {
+
+                  user_choice = true;
+
+                  cout << "Press [1] To Insert at End\n";
+
+                  cout << "Press [2] To Insert at Start\n";
+
+                  cout << "Press [3] To Insert after Number\n";
+
+                  cout << "Press [4] To Delete Front\n";
+
+                  cout << "Press [5] To Delete End\n";
+
+                  cout << "Press [6] To Delete Number\n";
+
+                  cout << "Press [7] To Display Numbers\n";
+
+                  cout << "Press [8] To Count Nodes\n";
+
+                  cout << "Press [9] To Remove Duplicate\n";
+
+                  cout << "Press [10] To Exit\n";
+
+                  cout << "\nChoose your option: ";
+
+                  int choice;
+
+                  cin >> choice;
+
+                  switch (choice) {
+
+                  case 1:
+
+                        if (COUNTER <= 10)
+
+                              obj.insertAtEnd();
+
+                        else cout << "List is Full\n";
+
+                        break;
+
+                  case 2:
+
+                        if (COUNTER <= 10)
+
+                              obj.insertAtFront();
+
+                        else cout << "List is Full\n";
+
+                        break;
+
+                  case 3:
+
+                        if (COUNTER <= 10)
+
+                              obj.insertAfterNumber();
+
+                        else
+
+                              cout << "List is Full\n";
+
+                        break;
+
+                  case 4:obj.deleteFront(); break;
+
+                  case 5:obj.deleteEnd(); break;
+
+                  case 6:obj.deleteAnyNumber(); break;
+
+                  case 7:obj.display(); break;
+
+                  case 8:cout<<"Total Nodes: "<<obj.Count()<<"\n"; break;
+
+                  case 9:obj.Remove_Duplicate(); break;
+
+                  case 10:isRunning = false; break;
+
+                  default:cout << "Invalid Choice\n";
+
+                        user_choice = false;
+
+                  }
+
+            } while (user_choice == false);
+
+      } while (isRunning);
+
+}
